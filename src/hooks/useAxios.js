@@ -1,15 +1,14 @@
 import axios from "axios";
-import { url } from "inspector";
 import  {useState} from "react";
 
 
-const useAxios = () => {
-    const [data, setData] = useState();
+const useAxios = (baseUrl) => {
+    const [data, setData] = useState([]);
 
-    const addData = async () => {
+    const addData = async (additionalUrl) => {
         try {
-            const response = await axios.get(url);
-            setData((prevData) => [...prevData, response.data]);
+            const response = await axios.get(`${baseUrl}${additionalUrl}`);
+            setData((data) => [...data, response.data]);
         }   catch (error) {
             console.error("Error fetching data",error);
         }
